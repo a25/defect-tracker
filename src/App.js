@@ -6,15 +6,9 @@ import Wrapper from "./components/Wrapper";
 import Logout from './components/Logout'
 import Test from './components/Test';
 import AddDefect from './components/AddDefect';
-import {BrowserRouter,Route,Redirect} from 'react-router-dom';
-import {getData} from './Utility/setDB';
+import {BrowserRouter,Route} from 'react-router-dom';
 export default function App() {
-  // let [loggedUser,setLoginUser] = useState('');
- 
-  useEffect(()=>{
-    let user=getData('user');
-  },[])
-  return (
+   return (
     
     <BrowserRouter>
  
