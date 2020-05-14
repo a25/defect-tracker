@@ -25,7 +25,7 @@ export default (props)=>{
     
         return (
             <>
-            <div className="bg-primary text-center text-white">Login</div>
+            <div className="bg-primary text-center p-2 text-white">Login</div>
             <div className="border pt-3 m-auto col-sm-8">
                 <form className="form form-horizontal" onSubmit={checkCredential}>
                 <div className="form-group row">

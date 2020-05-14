@@ -3,7 +3,7 @@ import Dropdown from "./Dropdown";
 import Table from "./Table";
 import Filter from '../Utility/filter';
 import setDB,{getData} from '../Utility/setDB';
-export default (props)=>{
+export default ()=>{
     let [defectData,setDefectData]=useState([]);
     let [originalData,setOriginalData]=useState([]);
     let [priority,setPriority]=useState('All');
