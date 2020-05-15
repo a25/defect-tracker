@@ -1,14 +1,23 @@
 import React ,{useState,useEffect} from 'react';
 import Dropdown from "./Dropdown";
 import setDB,{getData} from '../Utility/setDB';
+import {setStorageData} from '../Actions/storageDataAction';
+import {shallowEqual,useSelector,useDispatch} from 'react-redux';
 export default (props) =>{
-    let [category,setCategoryValue]=useState('UI');
-    let [description,setDescription] = useState('');
-    let [priority,setPriority] = useState(1);
+    // let [category,setCategoryValue]=useState('UI');
+    // let [description,setDescription] = useState('');
+    // let [priority,setPriority] = useState(1);
+    
+    let {category,description,priority} = useSelector((state)=>{
+        return {category:state.defect.category,
+        description:state.defect.description,
+        priority:state.defect.priority}
+
+    });
     
     let addDefect =(e)=>{
-        let DefectData=getData('defects');
         e.preventDefault();
+        let DefectData=getData('defects');
         if(!description){
             alert('Please fill up discription');
             return ;
