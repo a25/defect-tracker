@@ -17,7 +17,7 @@ export default function App() {
         <Route path="/defectTracker" render={(props)=><Wrapper {...props } show={true}><DefectTracker /></Wrapper>} exact />
         <Route path="/addDefect" render={(props)=><Wrapper {...props } show={true}><AddDefect {...props}/></Wrapper>} exact/>
         <Route path="/logout" render={(props)=><Logout {...props}/>} exact/>
-        <Redirect to="/login"/>
+        {/* <Redirect to="/login"/> */}
          {/* <Redirect to="/login" exact/> */}
     </BrowserRouter>
     

@@ -7,6 +7,7 @@ let defaultState = {
 }
 
 export default (state=defaultState,action)=>{
+    console.log(action)
     switch(action.type){
         case SET_DEFECT_CATEGORY_DATA:{
             return {...state,"category":action.data.target.value}

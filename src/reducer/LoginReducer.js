@@ -11,13 +11,10 @@ let validateForm = (state,event)=>{
     event.preventDefault();
     if((state.username=='tester' && state.password=='tester')||(state.username=='developer' && state.password=='developer')){
         return true;
-        // setDB('user',state.username);
-        // props.history.push('/defectTracker')
+       
     }
     return false;
-    // else{
-    //     alert("INVALID CREDENTIALS");
-    // }
+    
    
 }
 
@@ -30,11 +27,7 @@ export default (state={...defaultLoginFormtate},action)=>{
         case ON_LOGIN_FORM_SUBMIT : {
             return {...state,formDataValid:!!validateForm(state,action.data)}
         }
-        // case SET_STORAGE_DATA: {
-        //     debugger
-        //     setDB(action.data.key,action.data.value);
-        //     return state;
-        // }
+     
        
         default:{
             return state

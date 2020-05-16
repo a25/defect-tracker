@@ -5,21 +5,19 @@ import {setStorageData} from '../Actions/storageDataAction';
 import setDB,{getData} from '../Utility/setDB';
 import { useDispatch, useSelector } from "react-redux";
 export let Login = (props)=>{
-    // let [username,setUsername]=useState('');
-    // let [password,setPassword]=useState('');
+    let user = useSelector(state=>state.db.user)
     let username = useSelector(state => state.login.username);
     let password = useSelector(state => state.login.password);
     let formDataValid = useSelector(state => state.login.formDataValid);
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(setStorageData({key:'role',value:JSON.stringify({tester:'tester',developer:'developer'})}))
-        // setDB('role',JSON.stringify({tester:'tester',developer:'developer'}));
-        // props.setStorageDataValue()
         if(getData('user')){
+            dispatch(setStorageData({key:'user',value:getData('user')}));
             alert('You are already logged in!!');
             props.history.push('/defectTracker');
-            //you are logged in
         }
+        dispatch(setStorageData({key:'role',value:JSON.stringify({tester:'tester',developer:'developer'})}))
+        
     },[]);
     useEffect(()=>{
         if(formDataValid){
@@ -30,23 +28,6 @@ export let Login = (props)=>{
 
     let checkCredential = (event)=>{
         dispatch(onSubmitData(event))
-        // props.onSubmitForm(event);
-        // if(formDataValid){
-        //     dispatch(setStorageData({key:'user',value:props.username}))
-        //     // props.setStorageDataValue({key:'user',value:props.username});
-        //     props.history.push('/defectTracker')
-        // }
-        // else {
-        //     alert("INVALID CREDENTIALS");
-        // }
-        // e.preventDefault();
-        // if((username=='tester' && password=='tester')||(username=='developer' && password=='developer')){
-        //     setDB('user',username);
-        //     props.history.push('/defectTracker')
-        // }
-        // else{
-        //     alert("INVALID CREDENTIALS");
-        // }
     }
     
         return (
@@ -73,20 +54,3 @@ export let Login = (props)=>{
         )
     
 }
-
-// let mapStateToProps = (state)=>{
-//     return {
-//         username:state.username,
-//         password:state.password,
-//         formDataValid:state.formDataValid
-//     }
-// }
-// let mapActionToProps = (dispatch)=>{
-//     return {
-//         setUsername:(event)=>dispatch(onChangeData(event)),
-//         setPassword:(event)=>dispatch(onChangeData(event)),
-//         onSubmitForm:(event)=>dispatch(onSubmitData(event)),
-//         setStorageDataValue:(data)=>dispatch(setStorageData(data))
-//     }
-// }
-// export const Login=connect(mapStateToProps,mapActionToProps)(loginFormComponent)

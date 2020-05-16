@@ -2,6 +2,7 @@ import React from 'react';
 import Operation from './Operation';
 import {getData} from '../Utility/setDB';
 export default (props)=>{
+    debugger
     let user=getData('user');
     if(!user && props.match.path!='/login'){
         props.history.replace('/login');

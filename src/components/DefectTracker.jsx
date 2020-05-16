@@ -4,47 +4,35 @@ import Table from "./Table";
 // import Filter from '../Utility/filter';
 import setDB,{getData} from '../Utility/setDB';
 import {useSelector,useDispatch,shallowEqual} from 'react-redux';
-import { setPriority,setDefectCategory,setDefectData,setOriginalData} from '../Actions/defectTrackerActions';
+import { setPriority,setDefectCategory,setDefectData} from '../Actions/defectTrackerActions';
 import {setStorageData} from '../Actions/storageDataAction';
-
-// custom hook
-function useUpdateDb(callback,value){
-  let c= useRef(false)
-  useEffect(()=>{
-      if(c.current){
-        callback();
-      }
-      else {
-        c.current = true;
-      }
-  },[value])
-}
 
 export default ()=>{
     const dispatch = useDispatch();
-    let {defectData,originalData,priority,category}=useSelector((state)=>{
+    let {defectData,priority,category}=useSelector((state)=>{
         return {
           defectData:state.tracker.defectData,
-          originalData:state.tracker.originalData,
+          // originalData:state.tracker.originalData,
           priority:state.tracker.priority,
           category:state.tracker.category
         }
     },shallowEqual);
-
+    let {defects} = useSelector((state)=> ({defects:state.db.defects}));
 
     useEffect(()=>{
-      let data1=getData('defects');
-      if(!data1){
+      if(!getData('defects')){
         dispatch(setStorageData({key:'defects'}));
       }
-      let storageData =JSON.parse(window.sessionStorage.getItem('defects'));
-      dispatch(setDefectData({defectData:storageData}))
-      dispatch(setOriginalData({originalData:storageData}))
+      else{
+        dispatch(setStorageData({key:'defects',value:getData('defects')}));
+      }
+     
     },[])
 
-    useUpdateDb(()=>{
-      dispatch(setStorageData({key:'defects',value:JSON.stringify(originalData)}))
-    },originalData);
+    useEffect(()=>{
+      dispatch(setPriority(priority));
+    },[defects])
+   
 
 
     let changeStatus=(index)=>{
@@ -55,11 +43,11 @@ export default ()=>{
           return true;
         }
       })
-      let originalDataCpy=Object.assign([],originalData)
+      let originalDataCpy=Object.assign([],defects)
       
       originalDataCpy[index].Status=1;
-      dispatch(setDefectData({defectData:cpDefectData}));
-      dispatch(setOriginalData({originalData:originalDataCpy}))
+     
+      dispatch(setStorageData({key:'defects',value:JSON.stringify(originalDataCpy)}))
      
     }
 

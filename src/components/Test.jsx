@@ -4,7 +4,7 @@ export default ()=>{
     let [count,setCount] = useState(1);
     useEffect(()=>{
         setName('name')
-        console.log(name)
+       
     })
     return (<div>
         <button onClick={()=>setName('asj')}>Clcik</button>
